@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import date
         
 class CreateNewUser(BaseModel):
     username:str
@@ -10,5 +10,6 @@ class CreateNewUser(BaseModel):
         
 class NewWeight(BaseModel):
     username:str
+    date:date
     class Config:
         extra="forbid"
