@@ -15,7 +15,6 @@ def current_weight(username:str, db:Session):
     msg={"last weight":get_last_weight.weight}
     return msg
 
-
 def create_new_user(data:CreateNewUser,db:Session):
     existing_user = db.query(User).filter_by(username=data.username).first()
     if existing_user:
@@ -41,7 +40,6 @@ def create_new_weight(weight:int,date:float,data:NewWeight,db:Session):
         db.commit()
         db.refresh(new_weight)
         return {"msg":"new weight is created"}
-    
     
 def get_difference_weight(username:str, db:Session):
     user_existing=db.query(User).filter_by(username=User.username).first()
