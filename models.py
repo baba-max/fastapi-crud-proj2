@@ -10,7 +10,7 @@ class User(Base):
     height = Column(Float)
 
 class Weight(Base):
-    __tablename__="user2"
+    __tablename__="weights"
     id = Column(Integer,primary_key=True)
     username = Column(String)
     weight = Column(Float)
