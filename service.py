@@ -5,6 +5,11 @@ from exceptions import UserNotFoundException,WeightNotFound,ExistingUser
 import bcrypt
 
 
+def hash_password(password: str) -> str:
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password.decode('utf-8')
+
 def current_weight(username:str, db:Session):
     user_existing=db.query(User).filter_by(username=User.username).first()
     if not user_existing:
@@ -19,7 +24,8 @@ def create_new_user(data:CreateNewUser,db:Session):
     existing_user = db.query(User).filter_by(username=data.username).first()
     if existing_user:
         raise ExistingUser
-    new_user=User(username=data.username,password=data.password,height=data.height)
+    hashed_password = hash_password(data.password)
+    new_user=User(username=data.username,password=hashed_password,height=data.height)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
